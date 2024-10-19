@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <title>Background Video</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Kaushan Script", cursive;
+            font-weight: 400;
+            font-style: normal;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover; 
+            opacity: 0.5; 
+        }
+
+        .ml4 {
+            position: relative;
+            font-weight: 900;
+            margin-top: 5cm;
+            font-size: 3.5em;
+            color: rgb(248, 22, 173); 
+            text-align: center; 
+            z-index: 1; 
+        }
+
+        .ml4 .letters {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            top: 0.3em;
+            right: 0;
+            opacity: 0; 
+        }
+
+        .ml2 {
+            font-weight: 900;
+            font-size: 4.5em;
+            text-align: center;
+            color: rgb(10, 34, 247);
+            backdrop-filter: blur(13px);
+            box-shadow: 3px 2px 2px white; 
+            z-index: 1; 
+            position: relative; 
+        }
+
+        .ml2 .letter {
+            display: inline-block;
+            line-height: 1em;
+        }
+
+        button {
+            position: absolute;
+            bottom: 100px;
+            left: 50%; 
+            transform: translateX(-50%); 
+            padding: 10px 20px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to right, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8)); 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1; 
+        }
+
+        button:hover {
+            background: linear-gradient(to right, rgba(255, 0, 150, 1), rgba(0, 204, 255, 1)); 
+        }
+    </style>
+</head>
+<body>
+    <video class="video-background" autoplay loop muted>
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h1 class="ml2">BudgetHive - A Personal Expense Tracker</h1>
+
+    <h1 class="ml4">
+        <span class="letters letters-1">Your mindset determines your financial outcome.</span>
+        <span class="letters letters-2">Debt is like any other trap; easy to get into, hard to get out.</span>
+        <span class="letters letters-3">True wealth is the ability to live life on your own terms.</span>
+    </h1>
+
+    <button onclick="location.href='next.html'" aria-label="Start">Start</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>
+        var ml4 = {};
+        ml4.opacityIn = [0, 1];
+        ml4.scaleIn = [0.2, 1];
+        ml4.scaleOut = 3;
+        ml4.durationIn = 800;
+        ml4.durationOut = 600;
+        ml4.delay = 500;
+
+        anime.timeline({ loop: true })
+            .add({
+                targets: '.ml4 .letters-1',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+            }).add({
+                targets: '.ml4 .letters-1',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+            }).add({
+                targets: '.ml4 .letters-2',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+            }).add({
+                targets: '.ml4 .letters-2',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+            }).add({
+                targets: '.ml4 .letters-3',
+                opacity: ml4.opacityIn,
+                scale: ml4.scaleIn,
+                duration: ml4.durationIn
+            }).add({
+                targets: '.ml4 .letters-3',
+                opacity: 0,
+                scale: ml4.scaleOut,
+                duration: ml4.durationOut,
+                easing: "easeInExpo",
+                delay: ml4.delay
+            }).add({
+                targets: '.ml4',
+                opacity: 0,
+                duration: 500,
+                delay: 500
+            });
+
+        // Wrap every letter in a span for the second animation
+        var textWrapper = document.querySelector('.ml2');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({ loop: true })
+            .add({
+                targets: '.ml2 .letter',
+                scale: [4, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 950,
+                delay: (el, i) => 70 * i
+            }).add({
+                targets: '.ml2',
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            });
+    </script>
+</body>
+</html>
